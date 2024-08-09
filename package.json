@@ -1,0 +1,15 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "My learnings and progress in backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javscript",
+    "backend"
+  ],
+  "author": "Parthib Deb",
+  "license": "ISC"
+}
