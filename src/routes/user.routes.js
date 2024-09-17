@@ -15,6 +15,10 @@ router.route("/register").post(
       maxCount: 1,
     },
   ]),
+  // (req, res, next) => {
+  //   console.log(req.files);
+  //   next();
+  // },
   registerUser
 );
 
