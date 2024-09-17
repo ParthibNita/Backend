@@ -17,7 +17,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
   // 1
   const { fullName, email, password, username } = req.body;
-  console.log(fullName, email, password, username);
 
   // 2
   if (
@@ -40,21 +39,18 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   // 4
-  console.log(req.files);
-  console.log(req.files?.avatar || "hey");
-  console.log(req.files?.coverImage || "hello");
-  const avatarLocalPath = req.files?.avatar[0]?.path;
-  const coverImageLocalPath = req.files?.coverImage[0]?.path;
-
-  if (!avatarLocalPath) {
+  if (!req.files?.avatar) {
     throw new ApiError(400, "Avatar file is required");
   }
+
+  const avatarLocalPath = req.files?.avatar[0].path;
+  const coverImageLocalPath = req.files.coverImage
+    ? `${req.files.coverImage[0]?.path}`
+    : null;
 
   // 5
   const avatar = await uploadFileOnCloudinary(avatarLocalPath);
   const coverImage = await uploadFileOnCloudinary(coverImageLocalPath);
-
-  console.log(avatar, coverImage);
 
   if (!avatar) {
     throw new ApiError(400, "Failed to upload avatar on cloudinary");
