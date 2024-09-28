@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/user.model.js";
 import { uploadFileOnCloudinary } from "../utils/cloudinary.js";
+import logger from "../logger.js";
 
 //we will be using the tokens many times in the future so better to make a method
 const generateRefreshAndAccessTokens = async (userId) => {
@@ -91,6 +92,8 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   // 9
+  logger.info("User registered successfully");
+
   return res
     .status(201)
     .json(
@@ -108,6 +111,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // 3 - validate password
   // 4 - generate access,refresh token
   // 5 - send cookies
+  // 6 - return response
 
   // 1
   const { username, email, password } = req.body;
@@ -145,6 +149,9 @@ const loginUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true,
   };
+
+  // 6
+  logger.info("User logged in successfully");
 
   return res
     .status(200)
